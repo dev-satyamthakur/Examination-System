@@ -1,5 +1,7 @@
 import java.sql.*;
 import Project.ConnectionProvider; 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -20,15 +22,20 @@ public class addNewQuestion extends javax.swing.JFrame {
            Connection con = ConnectionProvider.getCon();
            Statement st = con.createStatement();
            ResultSet rs = st.executeQuery("select count(id) from question");
-           if(rs.first()){
+           if(rs.next()){
                int id = rs.getInt(1);
                id = id + 1;
-               String str = String.valueof(id);
+               String str = String.valueOf(id);
                jLabel4.setText(str);
+           }
+           else{
+               jLabel4.setText("1");
            }
         }
         catch(Exception e){
-            
+            JFrame jf = new JFrame();
+            jf.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(jf,e);
         }
     }
 
@@ -79,8 +86,13 @@ public class addNewQuestion extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Close.png"))); // NOI18N
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1139, 6, -1, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 79, 1205, 12));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 10, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1205, 12));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel3.setText("   Question ID:");
@@ -124,10 +136,10 @@ public class addNewQuestion extends javax.swing.JFrame {
                 jTextField2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 500, -1));
+        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 720, -1));
 
         jTextField3.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 500, -1));
+        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 720, -1));
 
         jTextField4.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
@@ -135,7 +147,7 @@ public class addNewQuestion extends javax.swing.JFrame {
                 jTextField4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 500, -1));
+        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 720, -1));
 
         jTextField5.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
@@ -143,14 +155,19 @@ public class addNewQuestion extends javax.swing.JFrame {
                 jTextField5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 500, -1));
+        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 720, -1));
 
         jTextField6.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        getContentPane().add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 500, -1));
+        getContentPane().add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 720, -1));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/clear.png"))); // NOI18N
         jButton2.setText("Clear");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 420, -1, -1));
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -164,8 +181,7 @@ public class addNewQuestion extends javax.swing.JFrame {
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, -1, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pages background admin.jpg"))); // NOI18N
-        jLabel11.setText("jLabel11");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 1060, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -184,7 +200,53 @@ public class addNewQuestion extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        String id = jLabel4.getText();
+        String name = jTextField1.getText();
+        String opt1 =  jTextField2.getText();
+        String opt2 =  jTextField3.getText();
+        String opt3 =  jTextField4.getText();
+        String opt4 =  jTextField5.getText();
+        String answer = jTextField6.getText();
+        try{
+            Connection con = ConnectionProvider.getCon();
+            PreparedStatement ps = con.prepareCall("insert into question value(?,?,?,?,?,?,?)");
+            ps.setString(1 , id);
+            ps.setString(2 , name);
+            ps.setString(3 , opt1);
+            ps.setString(4 , opt2);
+            ps.setString(5 , opt3);
+            ps.setString(6 , opt4);
+            ps.setString(7 , answer);
+            ps.executeUpdate();
+            JFrame jf = new JFrame();
+            jf.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(jf,"Successfully Updated");
+            setVisible(false);
+            new addNewQuestion().setVisible(true);
+            
+        }
+        catch(Exception e){
+            JFrame jf  = new JFrame();
+            jf.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(jf,e);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
+        jTextField6.setText("");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        adminHome.open = 0 ;
+        setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
