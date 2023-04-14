@@ -1,3 +1,5 @@
+import java.sql.*;
+import Project.ConnectionProvider; 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,6 +16,20 @@ public class addNewQuestion extends javax.swing.JFrame {
      */
     public addNewQuestion() {
         initComponents();
+        try{
+           Connection con = ConnectionProvider.getCon();
+           Statement st = con.createStatement();
+           ResultSet rs = st.executeQuery("select count(id) from question");
+           if(rs.first()){
+               int id = rs.getInt(1);
+               id = id + 1;
+               String str = String.valueof(id);
+               jLabel4.setText(str);
+           }
+        }
+        catch(Exception e){
+            
+        }
     }
 
     /**
@@ -100,7 +116,7 @@ public class addNewQuestion extends javax.swing.JFrame {
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 90, -1));
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 762, -1));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 720, -1));
 
         jTextField2.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -108,10 +124,10 @@ public class addNewQuestion extends javax.swing.JFrame {
                 jTextField2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 762, -1));
+        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 500, -1));
 
         jTextField3.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 762, -1));
+        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 500, -1));
 
         jTextField4.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
@@ -119,7 +135,7 @@ public class addNewQuestion extends javax.swing.JFrame {
                 jTextField4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 762, -1));
+        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 500, -1));
 
         jTextField5.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
@@ -127,10 +143,10 @@ public class addNewQuestion extends javax.swing.JFrame {
                 jTextField5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 762, -1));
+        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 500, -1));
 
         jTextField6.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        getContentPane().add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 762, -1));
+        getContentPane().add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 500, -1));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/clear.png"))); // NOI18N
