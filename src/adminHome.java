@@ -79,11 +79,21 @@ public static int open = 0;
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/all questions.png"))); // NOI18N
         jMenu3.setText("All Questions");
         jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu3);
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delete Question.png"))); // NOI18N
         jMenu4.setText("Delete Question");
         jMenu4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu4MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu4);
 
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/all student result.png"))); // NOI18N
@@ -178,6 +188,32 @@ public static int open = 0;
              }
        
     }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        // TODO add your handling code here:
+        if(open == 0){
+                 new allQuestion().setVisible(true);
+                 open = 1;
+             }
+             else{
+                 JFrame jf = new JFrame();
+                 jf.setAlwaysOnTop(true);
+                 JOptionPane.showMessageDialog(jf,"form is already open");
+             }
+    }//GEN-LAST:event_jMenu3MouseClicked
+
+    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+        // TODO add your handling code here:
+        if(open == 0){
+                 new deleteQuestion().setVisible(true);
+                 open = 1;
+             }
+             else{
+                 JFrame jf = new JFrame();
+                 jf.setAlwaysOnTop(true);
+                 JOptionPane.showMessageDialog(jf,"form is already open");
+             }
+    }//GEN-LAST:event_jMenu4MouseClicked
 
     /**
      * @param args the command line arguments
