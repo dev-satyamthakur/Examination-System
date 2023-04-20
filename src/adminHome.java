@@ -84,6 +84,11 @@ public static int open = 0;
                 jMenu3MouseClicked(evt);
             }
         });
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu3);
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delete Question.png"))); // NOI18N
@@ -100,6 +105,11 @@ public static int open = 0;
         jMenu5.setText("Students Result");
         jMenu5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jMenu5.setMargin(new java.awt.Insets(5, 6, 3, 6));
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu5MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu5);
 
         jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logout.png"))); // NOI18N
@@ -214,6 +224,23 @@ public static int open = 0;
                  JOptionPane.showMessageDialog(jf,"form is already open");
              }
     }//GEN-LAST:event_jMenu4MouseClicked
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+        if(open == 0){
+                new allResultStudent().setVisible(true);
+                 open = 1;
+             }
+             else{
+                 JFrame jf = new JFrame();
+                 jf.setAlwaysOnTop(true);
+                 JOptionPane.showMessageDialog(jf,"form is already open");
+             }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu5MouseClicked
 
     /**
      * @param args the command line arguments

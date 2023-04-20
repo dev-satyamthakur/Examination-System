@@ -165,13 +165,13 @@ public class deleteQuestion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+         // TODO add your handling code here:
         String id=jTextField1.getText();
         try{
             Connection con=ConnectionProvider.getCon();
             Statement st=con.createStatement();
             ResultSet rs=st.executeQuery("select *from question where id='"+id+"'");
-            if(rs.first()){
+            if(rs.next()){
                 jTextField2.setText(rs.getString(2));
                 jTextField3.setText(rs.getString(3));
                 jTextField4.setText(rs.getString(4));
@@ -182,9 +182,8 @@ public class deleteQuestion extends javax.swing.JFrame {
             }
             else{
                 JFrame jf=new JFrame();
-                jf.setAlwaysOnTop(false);
+                jf.setAlwaysOnTop(true);
                 JOptionPane.showMessageDialog(jf, "Question id does not exist");
-                
             }
         }
         catch(Exception e){
@@ -203,7 +202,7 @@ public class deleteQuestion extends javax.swing.JFrame {
         String id=jTextField1.getText();
         try{
             Connection con=ConnectionProvider.getCon();
-            Statement st=con.prepareStatement("delete from id where id=?");
+            PreparedStatement ps=con.prepareStatement("delete from question where id=?");
             ps.setString(1, id);
             ps.executeUpdate();
             JFrame jf=new JFrame();

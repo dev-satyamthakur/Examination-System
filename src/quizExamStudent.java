@@ -4,6 +4,7 @@ import java.sql.*;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
@@ -22,13 +23,13 @@ public class quizExamStudent extends javax.swing.JFrame {
     public String answer;
     public int min=0;
     public int sec=0;
-    public int marks;
+    public int marks =0;
     
     public void answerCheck(){
         String studentAnswer="";
         if(jRadioButton1.isSelected()){
             studentAnswer=jRadioButton1.getText();
-        }
+        }   
         else if(jRadioButton2.isSelected()){
             studentAnswer=jRadioButton2.getText();
         }
@@ -67,7 +68,6 @@ public class quizExamStudent extends javax.swing.JFrame {
         {
             Connection con=ConnectionProvider.getCon();
             Statement st=con.createStatement();
-            
             ResultSet rs1=st.executeQuery("select * from question where id='"+questionId+"'");
             while(rs1.next()){
                 jLabel17.setText(rs1.getString(1));
@@ -92,7 +92,7 @@ public class quizExamStudent extends javax.swing.JFrame {
         try{
             Connection con= ConnectionProvider.getCon();
             Statement st=con.createStatement();
-            st.executeUpdate("update student set marks='"+marks+"where rollNo'"+rollNo+"' ");
+            st.executeUpdate("update student set marks='"+marks+"' where rollNo ='"+rollNo+"' ");
             String marks1= String.valueOf(marks);
             setVisible(false);
             new succesfullySubmited(marks1).setVisible(true);
@@ -109,13 +109,13 @@ public class quizExamStudent extends javax.swing.JFrame {
         initComponents();
     }
     Timer time;
-    public quizExamStudent(String rollNo) {
+    public quizExamStudent(String rollNo){
         initComponents();
         
         jLabel11.setText(rollNo);
         
         //date
-        SimpleDateFormat dFormat=new SimpleDateFormat ("dd-MM-yyyy"); Date date=new Date();
+        SimpleDateFormat dFormat=new SimpleDateFormat("dd-MM-yyyy"); Date date=new Date();
         jLabel4.setText (dFormat.format(date));
         //first question and student Details
         try
@@ -125,9 +125,10 @@ public class quizExamStudent extends javax.swing.JFrame {
             ResultSet rs=st.executeQuery("select *from student where rollNo='"+rollNo+"'"); 
             while (rs.next())
         {
-            jLabel13.setText(rs.getString(2));}
+            jLabel13.setText(rs.getString(2));
+        }
             ResultSet rs1=st.executeQuery("select * from question where id='"+questionId+"'");
-            while(rs1.next()){
+            while(rs1.next()){  
                 jLabel17.setText(rs1.getString(1));
                 jLabel20.setText(rs1.getString(2));
                 jRadioButton1.setText(rs1.getString(3));
@@ -145,7 +146,7 @@ public class quizExamStudent extends javax.swing.JFrame {
         }
             //time program
             setLocationRelativeTo(this);
-        time = new Timer(1000, new ActionListener(){
+            time = new Timer(1000, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent ae){
                 jLabel9.setText(String.valueOf(sec));
@@ -403,17 +404,25 @@ public class quizExamStudent extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         answerCheck();
-        question();
+        question(); 
     }//GEN-LAST:event_jButton1ActionPerformed
-
+JFrame frmOpt;
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        int a=JOptionPane.showConfirmDialog(null,"Do you really want to submit", "select",JOptionPane.YES_NO_OPTION);
+          if (frmOpt == null) {
+         frmOpt = new JFrame("Exit confirm");
+          }
+         frmOpt.setVisible(true);
+         frmOpt.setLocation(100, 100);
+         frmOpt.setAlwaysOnTop(true);
+        int a=JOptionPane.showConfirmDialog(frmOpt,"Do you really want to submit?", "select",JOptionPane.YES_NO_OPTION);
+         frmOpt.dispose();
         if(a==0)
         {
             answerCheck();
             submit();
         }
+       
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
